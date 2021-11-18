@@ -5,6 +5,10 @@
  */
 package software.project;
 
+
+
+
+
 /**
  *
  * @author Hosny
@@ -17,6 +21,7 @@ public class SoftwareProject {
     public static void main(String[] args) {
         
         System.out.println("hi team scrum ");
+        new Card_info().setVisible(true);
         // TODO code application logic here
     }
     
