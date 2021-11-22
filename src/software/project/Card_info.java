@@ -103,7 +103,7 @@ public class Card_info extends javax.swing.JFrame {
         getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(332, 279, 138, -1));
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/software/project/card22.png"))); // NOI18N
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 650, 400));
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 560, 340));
 
         pack();
         setLocationRelativeTo(null);
