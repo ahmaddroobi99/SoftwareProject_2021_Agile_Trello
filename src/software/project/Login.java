@@ -7,6 +7,11 @@ package software.project;
 
 import javax.swing.JFrame;
 
+import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Mustafa-Sokar
@@ -125,6 +130,11 @@ public class Login extends javax.swing.JFrame {
         jButton2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setText("Login");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jLabel_Register.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel_Register.setForeground(new java.awt.Color(255, 255, 255));
@@ -220,6 +230,39 @@ public class Login extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_jLabel_RegisterMouseClicked
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        
+        String username = this.jTextField1.getText();
+        String password = this.jPasswordField1.getText();
+        
+        if(username.isEmpty() || password.isEmpty()){
+            JOptionPane.showMessageDialog(rootPane, "Please fill all required fields","Error",JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        try {
+            // TODO add your handling code here:
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/payme","root","root123@");
+            Statement stmt = con.createStatement();
+            String Search = "SELECT USERNAME,PASSWORD FROM USER WHERE USERNAME = '"+username+"'";
+            ResultSet rs = stmt.executeQuery(Search);
+            if(rs.next()){
+                String pass = rs.getString(1);
+                if(password.equals(pass)){
+                    JOptionPane.showMessageDialog(rootPane, "Login Successful", "Information", JOptionPane.INFORMATION_MESSAGE);
+                }else{
+                    JOptionPane.showMessageDialog(rootPane, "Username or password is incorrect.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }else{
+                JOptionPane.showMessageDialog(rootPane, "Username or password is incorrect.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
