@@ -12,6 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
+
 /**
  *
  * @author Mustafa-Sokar
@@ -248,16 +249,18 @@ public class Login extends javax.swing.JFrame {
             String Search = "SELECT USERNAME,PASSWORD FROM USER WHERE USERNAME = '"+username+"'";
             ResultSet rs = stmt.executeQuery(Search);
             if(rs.next()){
-                String pass = rs.getString(1);
+                String pass = rs.getString(2);
                 if(password.equals(pass)){
-                    JOptionPane.showMessageDialog(rootPane, "Login Successful", "Information", JOptionPane.INFORMATION_MESSAGE);
+                    homepage hp = new homepage(username);
+                    hp.setVisible(true);
+                    this.dispose();
                 }else{
                     JOptionPane.showMessageDialog(rootPane, "Username or password is incorrect.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }else{
                 JOptionPane.showMessageDialog(rootPane, "Username or password is incorrect.", "Error", JOptionPane.ERROR_MESSAGE);
             }
-            
+            con.close();
         } catch (SQLException ex) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }

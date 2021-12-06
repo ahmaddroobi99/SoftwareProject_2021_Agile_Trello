@@ -1,5 +1,14 @@
+package software.project;
+
 
 import java.awt.Color;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 
@@ -18,8 +27,24 @@ public class homepage extends javax.swing.JFrame {
     /**
      * Creates new form homepage
      */
-    public homepage() {
+    
+    String username;
+    
+    public homepage(String username) {
         initComponents();
+        this.username = username;
+        try {
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/payme","root","root123@");
+            Statement stmt = con.createStatement();
+            String sql = "SELECT FIRSTNAME,LASTNAME,userType FROM USER WHERE USERNAME='"+username+"'";
+            ResultSet rs = stmt.executeQuery(sql);
+            if(rs.next()){
+                this.jLabel3.setText(rs.getString(1)+" "+rs.getString(2));
+                this.jLabel4.setText(rs.getString(3));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(homepage.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         servicetab.setVisible(false);
     }
@@ -131,20 +156,13 @@ public class homepage extends javax.swing.JFrame {
         jLabel4.setText("      Type Of Acount");
         jLabel4.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jLabel6.setIcon(new javax.swing.ImageIcon("C:\\Users\\Hosny\\Desktop\\sp\\online_60px.png")); // NOI18N
         jLabel6.setText("jLabel6");
-
-        jLabel7.setIcon(new javax.swing.ImageIcon("C:\\Users\\Hosny\\Desktop\\sp\\user_24px.png")); // NOI18N
 
         jLabel8.setBackground(new java.awt.Color(255, 255, 255));
         jLabel8.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("             Balnce");
         jLabel8.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-
-        jLabel9.setIcon(new javax.swing.ImageIcon("C:\\Users\\Hosny\\Desktop\\sp\\money_pound_30px.png")); // NOI18N
-
-        jLabel10.setIcon(new javax.swing.ImageIcon("C:\\Users\\Hosny\\Desktop\\sp\\hashtag_activity_feed_26px.png")); // NOI18N
 
         jPanel6.setBackground(new java.awt.Color(1, 104, 123));
         jPanel6.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
@@ -686,37 +704,7 @@ public class homepage extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(homepage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(homepage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(homepage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(homepage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new homepage().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

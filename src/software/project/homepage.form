@@ -269,18 +269,10 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel6">
               <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\Hosny\Desktop\sp\online_60px.png"/>
-                </Property>
                 <Property name="text" type="java.lang.String" value="jLabel6"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel7">
-              <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\Hosny\Desktop\sp\user_24px.png"/>
-                </Property>
-              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel8">
               <Properties>
@@ -302,18 +294,8 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel9">
-              <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\Hosny\Desktop\sp\money_pound_30px.png"/>
-                </Property>
-              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel10">
-              <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\Hosny\Desktop\sp\hashtag_activity_feed_26px.png"/>
-                </Property>
-              </Properties>
             </Component>
             <Container class="javax.swing.JPanel" name="jPanel6">
               <Properties>
