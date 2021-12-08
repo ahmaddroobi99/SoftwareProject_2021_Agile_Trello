@@ -397,7 +397,7 @@ public class RegisterForm extends javax.swing.JFrame {
         
         information[0] = this.jTextField5.getText();
         information[1] = this.jPasswordField1.getText();
-        if(information[1].equals(this.jPasswordField2.getText())){
+        if(!information[1].equals(this.jPasswordField2.getText())){
             JOptionPane.showMessageDialog(rootPane, "Check the password you entered.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
@@ -423,7 +423,7 @@ public class RegisterForm extends javax.swing.JFrame {
             }
         }
         try{
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/payme","root","root123@");
+            Connection con = DriverManager.getConnection(ConnectionInfo.url,ConnectionInfo.username,ConnectionInfo.password);
             
             String stat = "INSERT INTO USER VALUES(?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement stmt = con.prepareStatement(stat);

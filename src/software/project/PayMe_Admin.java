@@ -5,6 +5,10 @@
  */
 package software.project;
 
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Msys
@@ -16,6 +20,16 @@ public class PayMe_Admin extends javax.swing.JFrame {
      */
     public PayMe_Admin() {
         initComponents();
+        this.setResizable(false);
+        try {
+            DefaultTableModel tableModel = new DefaultTableModel(AdminController.fetchAllUsers(),            new String [] {
+                "Username", "Name", ""
+            });
+            this.jTable1.setModel(tableModel);
+            this.jLabel4.setText("CURRENT USERS:"+tableModel.getRowCount());
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(rootPane,"An error occured while connecting to the database","Error",JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     /**
@@ -117,6 +131,11 @@ public class PayMe_Admin extends javax.swing.JFrame {
         jButton1.setText("SEARCH");
         jButton1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButton1.setBorderPainted(false);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jTextField1.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 14)); // NOI18N
         jTextField1.setForeground(new java.awt.Color(204, 0, 0));
@@ -174,6 +193,15 @@ public class PayMe_Admin extends javax.swing.JFrame {
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        String username = this.jTextField1.getText();
+        if(!username.isEmpty()){
+            Search_User interf = new Search_User(username);
+            interf.setVisible(true);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

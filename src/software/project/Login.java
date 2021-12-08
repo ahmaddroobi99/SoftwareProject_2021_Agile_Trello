@@ -244,7 +244,7 @@ public class Login extends javax.swing.JFrame {
         
         try {
             // TODO add your handling code here:
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/payme","root","root123@");
+            Connection con = DriverManager.getConnection(ConnectionInfo.url,ConnectionInfo.username,ConnectionInfo.password);
             Statement stmt = con.createStatement();
             String Search = "SELECT USERNAME,PASSWORD FROM USER WHERE USERNAME = '"+username+"'";
             ResultSet rs = stmt.executeQuery(Search);
