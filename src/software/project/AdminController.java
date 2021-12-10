@@ -55,4 +55,14 @@ public class AdminController {
         }else return null;
     }
     
+    public static boolean addService(String serviceName,String accountNum)throws SQLException{
+        Connection con = DriverManager.getConnection(ConnectionInfo.url,ConnectionInfo.username,ConnectionInfo.password);
+        Statement stmt = con.createStatement();
+        String insert = "INSERT INTO SERVICE(SERVICENAME,ACCOUNTNO) VALUES('"+serviceName+"','"+accountNum+"');";
+        int t =stmt.executeUpdate(insert);
+        if(t >= 1)
+            return true;
+        else return false;
+    }
+    
 }
