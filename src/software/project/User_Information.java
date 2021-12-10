@@ -207,7 +207,7 @@ public class User_Information extends javax.swing.JFrame {
         // TODO add your handling code here:
         
         Update_Information reg=new Update_Information(850,450);
-        reg.setSize(850,450);
+        reg.setSize(850,550);
         reg.setVisible(true);
        
         reg.setLocationRelativeTo(null);
