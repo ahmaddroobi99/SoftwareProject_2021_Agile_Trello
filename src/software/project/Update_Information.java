@@ -5,6 +5,12 @@
  */
 package software.project;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -24,8 +30,10 @@ public class Update_Information extends javax.swing.JFrame {
         this.jLabel9.hide();
         this.jLabel10.hide();
         this.pass.hide();
+        this.checkbox1.hide();
+        this.checkbox2.hide();
         this.confirmpass.hide();
-        this.setSize(800,450);
+        this.setSize(800,550);
         this.setSize(x,y);
        
     }
@@ -42,9 +50,9 @@ public class Update_Information extends javax.swing.JFrame {
         buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        FirstN = new javax.swing.JTextField();
+        FN = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        LastN = new javax.swing.JTextField();
+        LN = new javax.swing.JTextField();
         email = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -56,12 +64,18 @@ public class Update_Information extends javax.swing.JFrame {
         female = new javax.swing.JRadioButton();
         jLabel7 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        pass = new javax.swing.JTextField();
-        confirmpass = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         newPass = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jLabel14 = new javax.swing.JLabel();
+        city = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        user = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        checkbox1 = new java.awt.Checkbox();
+        checkbox2 = new java.awt.Checkbox();
+        pass = new javax.swing.JPasswordField();
+        confirmpass = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(51, 255, 51));
@@ -75,32 +89,32 @@ public class Update_Information extends javax.swing.JFrame {
         jLabel1.setText("First Name:");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(51, 51, -1, -1));
 
-        FirstN.setBackground(new java.awt.Color(255, 235, 255));
-        FirstN.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        FirstN.setText("mostafa");
-        FirstN.setToolTipText("");
-        FirstN.addActionListener(new java.awt.event.ActionListener() {
+        FN.setBackground(new java.awt.Color(255, 235, 255));
+        FN.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        FN.setText("mostafa");
+        FN.setToolTipText("");
+        FN.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                FirstNActionPerformed(evt);
+                FNActionPerformed(evt);
             }
         });
-        jPanel1.add(FirstN, new org.netbeans.lib.awtextra.AbsoluteConstraints(184, 53, 150, -1));
+        jPanel1.add(FN, new org.netbeans.lib.awtextra.AbsoluteConstraints(184, 53, 150, -1));
 
         jLabel2.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Last Name:");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(398, 51, -1, -1));
 
-        LastN.setBackground(new java.awt.Color(255, 235, 255));
-        LastN.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        LastN.setText("Sokar");
-        LastN.setToolTipText("");
-        LastN.addActionListener(new java.awt.event.ActionListener() {
+        LN.setBackground(new java.awt.Color(255, 235, 255));
+        LN.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        LN.setText("Sokar");
+        LN.setToolTipText("");
+        LN.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                LastNActionPerformed(evt);
+                LNActionPerformed(evt);
             }
         });
-        jPanel1.add(LastN, new org.netbeans.lib.awtextra.AbsoluteConstraints(512, 53, 150, -1));
+        jPanel1.add(LN, new org.netbeans.lib.awtextra.AbsoluteConstraints(512, 53, 150, -1));
 
         email.setBackground(new java.awt.Color(255, 235, 255));
         email.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -176,37 +190,17 @@ public class Update_Information extends javax.swing.JFrame {
         jPanel1.add(female, new org.netbeans.lib.awtextra.AbsoluteConstraints(587, 147, -1, -1));
 
         jLabel7.setText("--------------------------------------------------------------------------------------------------------------------------------------------");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(94, 194, 562, -1));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 270, 562, -1));
 
         jLabel9.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText(" Password:");
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(74, 272, -1, -1));
-
-        pass.setBackground(new java.awt.Color(255, 235, 255));
-        pass.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        pass.setToolTipText("");
-        pass.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                passActionPerformed(evt);
-            }
-        });
-        jPanel1.add(pass, new org.netbeans.lib.awtextra.AbsoluteConstraints(183, 274, 140, -1));
-
-        confirmpass.setBackground(new java.awt.Color(255, 235, 255));
-        confirmpass.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        confirmpass.setToolTipText("");
-        confirmpass.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                confirmpassActionPerformed(evt);
-            }
-        });
-        jPanel1.add(confirmpass, new org.netbeans.lib.awtextra.AbsoluteConstraints(522, 274, 140, -1));
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 350, -1, -1));
 
         jLabel10.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setText("Confirm Password:");
-        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(341, 272, -1, -1));
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 350, -1, -1));
 
         newPass.setBackground(new java.awt.Color(192, 57, 43));
         newPass.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -216,7 +210,7 @@ public class Update_Information extends javax.swing.JFrame {
                 newPassMouseClicked(evt);
             }
         });
-        jPanel1.add(newPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(74, 221, -1, -1));
+        jPanel1.add(newPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 300, -1, -1));
 
         jButton1.setBackground(new java.awt.Color(144, 167, 140));
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -226,12 +220,54 @@ public class Update_Information extends javax.swing.JFrame {
                 jButton1MouseClicked(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(428, 320, 152, 52));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 400, 152, 52));
 
         jLabel14.setBackground(new java.awt.Color(51, 51, 255));
-        jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/software/project/user_p-modified.png"))); // NOI18N
+        jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/software/project/user_icon.png"))); // NOI18N
         jLabel14.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 10, -1, -1));
+
+        city.setBackground(new java.awt.Color(255, 235, 255));
+        city.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        city.setText("Nablus");
+        city.setToolTipText("");
+        jPanel1.add(city, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 210, 150, -1));
+
+        jLabel8.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("City:");
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 210, -1, -1));
+
+        user.setBackground(new java.awt.Color(255, 235, 255));
+        user.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        user.setText("MustafaSokar");
+        user.setToolTipText("");
+        jPanel1.add(user, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 210, 150, -1));
+
+        jLabel11.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel11.setText("User Name:");
+        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 210, -1, -1));
+
+        checkbox1.setForeground(new java.awt.Color(255, 255, 255));
+        checkbox1.setLabel("Show");
+        checkbox1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                checkbox1ItemStateChanged(evt);
+            }
+        });
+        jPanel1.add(checkbox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 350, -1, -1));
+
+        checkbox2.setForeground(new java.awt.Color(255, 255, 255));
+        checkbox2.setLabel("Show");
+        checkbox2.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                checkbox2ItemStateChanged(evt);
+            }
+        });
+        jPanel1.add(checkbox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 350, -1, -1));
+        jPanel1.add(pass, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 350, 120, 30));
+        jPanel1.add(confirmpass, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 350, 130, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -241,19 +277,19 @@ public class Update_Information extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 412, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void FirstNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FirstNActionPerformed
+    private void FNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FNActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_FirstNActionPerformed
+    }//GEN-LAST:event_FNActionPerformed
 
-    private void LastNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LastNActionPerformed
+    private void LNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LNActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_LastNActionPerformed
+    }//GEN-LAST:event_LNActionPerformed
 
     private void emailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailActionPerformed
         // TODO add your handling code here:
@@ -271,14 +307,6 @@ public class Update_Information extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_femaleActionPerformed
 
-    private void passActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_passActionPerformed
-
-    private void confirmpassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmpassActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_confirmpassActionPerformed
-
     private void newPassMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_newPassMouseClicked
         // TODO add your handling code here:
         
@@ -286,6 +314,8 @@ public class Update_Information extends javax.swing.JFrame {
         this.jLabel10.setVisible(true);
         this.pass.setVisible(true);
         this.confirmpass.setVisible(true);
+        this.checkbox1.setVisible(true);
+        this.checkbox2.setVisible(true);
     }//GEN-LAST:event_newPassMouseClicked
 
     private void PhoneKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PhoneKeyPressed
@@ -303,7 +333,7 @@ public class Update_Information extends javax.swing.JFrame {
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         // TODO add your handling code here:
-         if(this.FirstN.getText().isEmpty()||this.LastN.getText().isEmpty()
+         if(this.FN.getText().isEmpty()||this.LN.getText().isEmpty()
             ||this.email.getText().isEmpty()||this.Phone.getText().isEmpty()||this.pass.getText().isEmpty()||this.confirmpass.getText().isEmpty())
             {
                 JOptionPane.showMessageDialog(null, "Please Fill all the Fields");
@@ -317,12 +347,32 @@ public class Update_Information extends javax.swing.JFrame {
        else{
            JOptionPane.showMessageDialog(null, "Updated successfully");
            
-           //store in database
+           //store update in database...
+            
            
-           
-           
-       }
+       }    
     }//GEN-LAST:event_jButton1MouseClicked
+
+    private void checkbox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_checkbox1ItemStateChanged
+        // TODO add your handling code here:
+        if(this.checkbox1.getState()){
+            this.pass.setEchoChar((char)0);
+        }
+        else{
+            this.pass.setEchoChar('*');
+        }
+    }//GEN-LAST:event_checkbox1ItemStateChanged
+
+    private void checkbox2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_checkbox2ItemStateChanged
+        // TODO add your handling code here:
+        
+         if(this.checkbox2.getState()){
+            this.confirmpass.setEchoChar((char)0);
+        }
+        else{
+            this.confirmpass.setEchoChar('*');
+        }
+    }//GEN-LAST:event_checkbox2ItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -357,23 +407,27 @@ public class Update_Information extends javax.swing.JFrame {
             public void run() {
                 Update_Information gg=new Update_Information(850,450);
                         gg.setVisible(true);
-                        gg.setSize(850,450);
+                        gg.setSize(850,550);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.toedter.calendar.JDateChooser Datebirth;
-    private javax.swing.JTextField FirstN;
-    private javax.swing.JTextField LastN;
+    private javax.swing.JTextField FN;
+    private javax.swing.JTextField LN;
     private javax.swing.JTextField Phone;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JTextField confirmpass;
+    private java.awt.Checkbox checkbox1;
+    private java.awt.Checkbox checkbox2;
+    private javax.swing.JTextField city;
+    private javax.swing.JPasswordField confirmpass;
     private javax.swing.JTextField email;
     private javax.swing.JRadioButton female;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -381,10 +435,12 @@ public class Update_Information extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JRadioButton male;
     private javax.swing.JButton newPass;
-    private javax.swing.JTextField pass;
+    private javax.swing.JPasswordField pass;
+    private javax.swing.JTextField user;
     // End of variables declaration//GEN-END:variables
 }
