@@ -26,26 +26,31 @@ public class Card_info extends javax.swing.JFrame {
     /**
      * Creates new form Card_info
      */
+    String UserName;
     public Card_info() {
         initComponents();
-        try{
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/payme","root","root123@");
-            //Connection con =(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/payme","root","");
-            Statement stmt = con.createStatement();
-            String sqlstr="SELECT * FROM `user`;";
-            ResultSet rs=stmt.executeQuery(sqlstr);
-            while(rs.next())
-            {
-                String s=rs.getString("Username");
-                jComboBox1.addItem(s);
-            }
-            con.close();
-
-        }
-        catch(Exception e)
-        {
-            e.printStackTrace();
-        }
+//        try{
+//            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/payme","root","root123@");
+//            //Connection con =(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/payme","root","");
+//            Statement stmt = con.createStatement();
+//            String sqlstr="SELECT * FROM `user`;";
+//            ResultSet rs=stmt.executeQuery(sqlstr);
+//            while(rs.next())
+//            {
+//                String s=rs.getString("Username");
+//                jComboBox1.addItem(s);
+//            }
+//            con.close();
+//
+//        }
+//        catch(Exception e)
+//        {
+//            e.printStackTrace();
+//        }
+    }
+    public Card_info(String UN) {
+        initComponents();
+        this.UserName=UN;
     }
 
     /**
@@ -68,10 +73,8 @@ public class Card_info extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         jTextField5 = new javax.swing.JTextField();
-        jLabel8 = new javax.swing.JLabel();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
         jButton2 = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
         jLabel9 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
 
@@ -143,7 +146,7 @@ public class Card_info extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(332, 280, 150, -1));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(332, 250, 150, -1));
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
@@ -155,11 +158,6 @@ public class Card_info extends javax.swing.JFrame {
         jTextField5.setForeground(new java.awt.Color(255, 255, 255));
         jTextField5.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         getContentPane().add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(332, 60, 150, 20));
-
-        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setText("User Name");
-        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(197, 250, 105, -1));
 
         jDateChooser1.setForeground(new java.awt.Color(255, 255, 255));
         getContentPane().add(jDateChooser1, new org.netbeans.lib.awtextra.AbsoluteConstraints(332, 170, 150, 20));
@@ -173,12 +171,7 @@ public class Card_info extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 280, 150, -1));
-
-        jComboBox1.setBackground(new java.awt.Color(88, 173, 210));
-        jComboBox1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBox1.setForeground(new java.awt.Color(255, 255, 255));
-        getContentPane().add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(332, 250, 150, 20));
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(332, 290, 150, -1));
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/software/project/icons8-search-30.png"))); // NOI18N
         jLabel9.setToolTipText("");
@@ -237,7 +230,7 @@ public class Card_info extends javax.swing.JFrame {
             String CHN=jTextField2.getText();
             Date EXPD=jDateChooser1.getDate();
             int CSV=Integer.parseInt(jTextField4.getText());
-            String username=(String)jComboBox1.getSelectedItem();
+            String username=this.UserName;
             int year=jDateChooser1.getDate().getYear()+1900;
             int month=jDateChooser1.getDate().getMonth()+1;
             int day=jDateChooser1.getDate().getDate();
@@ -299,7 +292,7 @@ public class Card_info extends javax.swing.JFrame {
             String CHN=jTextField2.getText();
             Date EXPD=jDateChooser1.getDate();
             int CSV=Integer.parseInt(jTextField4.getText());
-            String username=(String)jComboBox1.getSelectedItem();
+            String username=this.UserName;
             int year=jDateChooser1.getDate().getYear()+1900;
             int month=jDateChooser1.getDate().getMonth()+1;
             int day=jDateChooser1.getDate().getDate();
@@ -340,7 +333,8 @@ public class Card_info extends javax.swing.JFrame {
             Statement stmt = con.createStatement();
             int pin=Integer.parseInt(jTextField5.getText());
             int cardno=Integer.parseInt(jTextField1.getText());
-            String sqlstr="SELECT * FROM `card` WHERE `PIN`='"+pin+"' and `CardNo`='"+cardno+"';";
+            String uus=this.UserName;
+            String sqlstr="SELECT * FROM `card` WHERE `PIN`='"+pin+"' and `CardNo`='"+cardno+"' and `Username`='"+uus+"';";
             ResultSet rs=stmt.executeQuery(sqlstr);
             if(rs.next())
             {
@@ -348,7 +342,7 @@ public class Card_info extends javax.swing.JFrame {
                 jTextField2.setText(rs.getString("CardHolderName"));
                 jDateChooser1.setDate(rs.getDate("ExpDate"));
                 jTextField4.setText(rs.getString("CSV"));
-                jComboBox1.setSelectedItem(rs.getString("Username"));
+                //jComboBox1.setSelectedItem(rs.getString("Username"));
             }
             else
             {
@@ -379,7 +373,6 @@ public class Card_info extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jComboBox1;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -388,7 +381,6 @@ public class Card_info extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
