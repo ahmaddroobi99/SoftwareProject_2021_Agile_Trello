@@ -1,5 +1,15 @@
 package software.project;
-
+import com.mysql.cj.protocol.Resultset;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Date;
+import java.util.Locale;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -18,6 +28,24 @@ public class Card_info extends javax.swing.JFrame {
      */
     public Card_info() {
         initComponents();
+        try{
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/payme","root","root123@");
+            //Connection con =(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/payme","root","");
+            Statement stmt = con.createStatement();
+            String sqlstr="SELECT * FROM `user`;";
+            ResultSet rs=stmt.executeQuery(sqlstr);
+            while(rs.next())
+            {
+                String s=rs.getString("Username");
+                jComboBox1.addItem(s);
+            }
+            con.close();
+
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -36,14 +64,23 @@ public class Card_info extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
         jTextField4 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        jTextField5 = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        jButton2 = new javax.swing.JButton();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jLabel9 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Card info");
+        setMinimumSize(new java.awt.Dimension(640, 340));
+        setPreferredSize(new java.awt.Dimension(560, 360));
         setResizable(false);
+        setSize(new java.awt.Dimension(640, 360));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
@@ -76,38 +113,263 @@ public class Card_info extends javax.swing.JFrame {
         jTextField1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jTextField1.setForeground(new java.awt.Color(255, 255, 255));
         jTextField1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
-        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(332, 97, 138, 20));
+        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(332, 97, 150, 20));
 
         jTextField2.setBackground(new java.awt.Color(88, 173, 210));
         jTextField2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jTextField2.setForeground(new java.awt.Color(255, 255, 255));
         jTextField2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
-        getContentPane().add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(332, 135, 138, 20));
-
-        jTextField3.setBackground(new java.awt.Color(88, 173, 210));
-        jTextField3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jTextField3.setForeground(new java.awt.Color(255, 255, 255));
-        jTextField3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
-        getContentPane().add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(332, 173, 138, 20));
+        getContentPane().add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(332, 135, 150, 20));
 
         jTextField4.setBackground(new java.awt.Color(88, 173, 210));
         jTextField4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jTextField4.setForeground(new java.awt.Color(255, 255, 255));
         jTextField4.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
-        getContentPane().add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(332, 211, 138, 20));
+        getContentPane().add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(332, 211, 150, 20));
 
         jButton1.setBackground(new java.awt.Color(88, 173, 210));
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Add Card");
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(332, 279, 138, -1));
+        jButton1.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+                jButton1CaretPositionChanged(evt);
+            }
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
+            }
+        });
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(332, 280, 150, -1));
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setText("PIN");
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(197, 60, 105, -1));
+
+        jTextField5.setBackground(new java.awt.Color(88, 173, 210));
+        jTextField5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jTextField5.setForeground(new java.awt.Color(255, 255, 255));
+        jTextField5.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        getContentPane().add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(332, 60, 150, 20));
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("User Name");
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(197, 250, 105, -1));
+
+        jDateChooser1.setForeground(new java.awt.Color(255, 255, 255));
+        getContentPane().add(jDateChooser1, new org.netbeans.lib.awtextra.AbsoluteConstraints(332, 170, 150, 20));
+
+        jButton2.setBackground(new java.awt.Color(88, 173, 210));
+        jButton2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
+        jButton2.setText("Update Card");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 280, 150, -1));
+
+        jComboBox1.setBackground(new java.awt.Color(88, 173, 210));
+        jComboBox1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jComboBox1.setForeground(new java.awt.Color(255, 255, 255));
+        getContentPane().add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(332, 250, 150, 20));
+
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/software/project/icons8-search-30.png"))); // NOI18N
+        jLabel9.setToolTipText("");
+        jLabel9.setMaximumSize(new java.awt.Dimension(40, 40));
+        jLabel9.setMinimumSize(new java.awt.Dimension(40, 40));
+        jLabel9.setPreferredSize(new java.awt.Dimension(40, 40));
+        jLabel9.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel9MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel9MouseEntered(evt);
+            }
+        });
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 70, 30, 30));
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/software/project/card22.png"))); // NOI18N
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 560, 340));
+        jLabel6.setPreferredSize(new java.awt.Dimension(640, 340));
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 640, 340));
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        if(jTextField5.getText().isEmpty())
+                {
+                JOptionPane.showMessageDialog(rootPane, "Make sure all of the fields are filled.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;    
+                }
+                else if(jTextField1.getText().isEmpty())
+                {
+                JOptionPane.showMessageDialog(rootPane, "Make sure all of the fields are filled.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;    
+                }
+                else if(jTextField2.getText().isEmpty())
+                {
+                JOptionPane.showMessageDialog(rootPane, "Make sure all of the fields are filled.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;    
+                }
+                else if(jTextField4.getText().isEmpty())
+                {
+                JOptionPane.showMessageDialog(rootPane, "Make sure all of the fields are filled.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;    
+                }
+        try{
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/payme","root","root123@");
+            //Connection con =(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/payme","root","");
+            Statement stmt = con.createStatement();
+            int pin=Integer.parseInt(jTextField5.getText());
+            int cardno=Integer.parseInt(jTextField1.getText());
+            String sqlstr="SELECT * FROM `card` WHERE `PIN`='"+pin+"' and `CardNo`='"+cardno+"';";
+            ResultSet rs=stmt.executeQuery(sqlstr);
+            if(rs.next())
+            {
+            String CHN=jTextField2.getText();
+            Date EXPD=jDateChooser1.getDate();
+            int CSV=Integer.parseInt(jTextField4.getText());
+            String username=(String)jComboBox1.getSelectedItem();
+            int year=jDateChooser1.getDate().getYear()+1900;
+            int month=jDateChooser1.getDate().getMonth()+1;
+            int day=jDateChooser1.getDate().getDate();
+            String sqlstr1="UPDATE `card` SET `PIN` = '"+pin+"', `CardNo` = '"+cardno+"', `CardHolderName` = '"+CHN+"', `ExpDate` = '"+year+"-"+month+"-"+day+"', `CSV` = '"+CSV+"', `Username` = '"+username+"' WHERE `card`.`PIN` = "+pin+" AND `card`.`CardNo` = "+cardno+"";
+            stmt.executeUpdate(sqlstr1);
+            JOptionPane.showMessageDialog(rootPane, "Update Card Successfuly");
+            con.commit();
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(rootPane, "We not found the card", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            con.close();
+        }
+        catch(NumberFormatException e)
+        {
+            JOptionPane.showMessageDialog(rootPane, "Try again,Please Enter Correct values", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        catch(Exception e)
+        {
+            //e.printStackTrace();
+            //JOptionPane.showMessageDialog(rootPane, "Please Enter PIN and Card No", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1CaretPositionChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_jButton1CaretPositionChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1CaretPositionChanged
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+                
+                if(jTextField5.getText().isEmpty())
+                {
+                JOptionPane.showMessageDialog(rootPane, "Make sure all of the fields are filled.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;    
+                }
+                else if(jTextField1.getText().isEmpty())
+                {
+                JOptionPane.showMessageDialog(rootPane, "Make sure all of the fields are filled.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;    
+                }
+                else if(jTextField2.getText().isEmpty())
+                {
+                JOptionPane.showMessageDialog(rootPane, "Make sure all of the fields are filled.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;    
+                }
+                else if(jTextField4.getText().isEmpty())
+                {
+                JOptionPane.showMessageDialog(rootPane, "Make sure all of the fields are filled.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;    
+                }
+        try{
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/payme","root","root123@");
+            //Connection con =(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/payme","root","");
+            Statement stmt = con.createStatement();
+            int pin=Integer.parseInt(jTextField5.getText());
+            int cardno=Integer.parseInt(jTextField1.getText());
+            String CHN=jTextField2.getText();
+            Date EXPD=jDateChooser1.getDate();
+            int CSV=Integer.parseInt(jTextField4.getText());
+            String username=(String)jComboBox1.getSelectedItem();
+            int year=jDateChooser1.getDate().getYear()+1900;
+            int month=jDateChooser1.getDate().getMonth()+1;
+            int day=jDateChooser1.getDate().getDate();
+            String sqlstr="INSERT INTO `card` (`PIN`, `CardNo`, `CardHolderName`, `ExpDate`, `CSV`, `Username`) VALUES ('"+pin+"', '"+cardno+"', '"+CHN+"', '"+year+"-"+month+"-"+day+"', '"+CSV+"', '"+username+"')";
+            //System.out.println(sqlstr);
+            stmt.executeUpdate(sqlstr);
+            JOptionPane.showMessageDialog(rootPane, "Add Card Successfuly");
+            con.commit();
+            con.close();
+            
+
+        }
+        catch(NumberFormatException e)
+        {
+            JOptionPane.showMessageDialog(rootPane, "Try again,Please Enter Correct values", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        catch(Exception e)
+        {
+            //e.printStackTrace();
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked
+        if(jTextField5.getText().isEmpty())
+        {
+        JOptionPane.showMessageDialog(rootPane, "Please Enter PIN and Card No", "Error", JOptionPane.ERROR_MESSAGE);
+        return;    
+        }
+        else if(jTextField1.getText().isEmpty())
+        {
+        JOptionPane.showMessageDialog(rootPane, "Please Enter PIN and Card No", "Error", JOptionPane.ERROR_MESSAGE);
+        return;    
+        }
+        
+        try{
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/payme","root","root123@");
+            //Connection con =(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/payme","root","");
+            Statement stmt = con.createStatement();
+            int pin=Integer.parseInt(jTextField5.getText());
+            int cardno=Integer.parseInt(jTextField1.getText());
+            String sqlstr="SELECT * FROM `card` WHERE `PIN`='"+pin+"' and `CardNo`='"+cardno+"';";
+            ResultSet rs=stmt.executeQuery(sqlstr);
+            if(rs.next())
+            {
+            
+                jTextField2.setText(rs.getString("CardHolderName"));
+                jDateChooser1.setDate(rs.getDate("ExpDate"));
+                jTextField4.setText(rs.getString("CSV"));
+                jComboBox1.setSelectedItem(rs.getString("Username"));
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(rootPane, "We not found the card", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            con.close();
+        }
+        catch(NumberFormatException e)
+        {
+            JOptionPane.showMessageDialog(rootPane, "Try again,Please Enter Correct values", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        catch(Exception e)
+        {
+            //JOptionPane.showMessageDialog(rootPane, "Please Enter PIN and Card No", "Error", JOptionPane.ERROR_MESSAGE);
+            //e.printStackTrace();
+        }
+    }//GEN-LAST:event_jLabel9MouseClicked
+
+    private void jLabel9MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel9MouseEntered
 
     /**
      * @param args the command line arguments
@@ -116,15 +378,21 @@ public class Card_info extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JComboBox<String> jComboBox1;
+    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField jTextField5;
     // End of variables declaration//GEN-END:variables
 }
