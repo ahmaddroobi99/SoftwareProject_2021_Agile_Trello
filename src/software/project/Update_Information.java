@@ -249,7 +249,7 @@ public class Update_Information extends javax.swing.JFrame {
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 400, 152, 52));
 
         jLabel14.setBackground(new java.awt.Color(51, 51, 255));
-        jLabel14.setText("IMAGE");
+        jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/software/project/User_Icon.png"))); // NOI18N
         jLabel14.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 10, -1, -1));
 

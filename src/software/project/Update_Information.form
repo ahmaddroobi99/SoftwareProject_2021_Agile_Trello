@@ -373,7 +373,9 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="33" red="33" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="IMAGE"/>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/software/project/User_Icon.png"/>
+            </Property>
             <Property name="verticalAlignment" type="int" value="1"/>
           </Properties>
           <Constraints>
