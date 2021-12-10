@@ -10,6 +10,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Date;
 
 /**
  *
@@ -44,17 +45,18 @@ public class AdminController {
     public static String[] searchUser(String username) throws SQLException{
         Connection con = DriverManager.getConnection(ConnectionInfo.url,ConnectionInfo.username,ConnectionInfo.password);
         Statement stmt = con.createStatement();
-        String Search = "SELECT Username, firstName, lastName, userType, email, phone, address, gender FROM USER where username = '"+username+"'";
+        String Search = "SELECT Username, firstName, lastName, userType, email, phone, address, gender,birth FROM USER where username = '"+username+"'";
         ResultSet rs = stmt.executeQuery(Search);
         if(rs.next()){
-            String[] info = new String[8];
-            for(int i = 0;i<8;i++){
+            String[] info = new String[9];
+            for(int i = 0;i<9;i++){
                 info[i] = rs.getString(i+1);
             }
             return info;
         }else return null;
     }
     
+
     public static boolean addService(String serviceName,String accountNum)throws SQLException{
         Connection con = DriverManager.getConnection(ConnectionInfo.url,ConnectionInfo.username,ConnectionInfo.password);
         Statement stmt = con.createStatement();
@@ -65,4 +67,5 @@ public class AdminController {
         else return false;
     }
     
+
 }

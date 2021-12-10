@@ -5,10 +5,8 @@
  */
 package software.project;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -22,20 +20,38 @@ public class Update_Information extends javax.swing.JFrame {
     /**
      * Creates new form User_Information
      */
-    public Update_Information(int x,int y) {
-        initComponents();
-        
-        this.setTitle("Update Information");
-         this.setLocationRelativeTo(null);
-        this.jLabel9.hide();
-        this.jLabel10.hide();
-        this.pass.hide();
-        this.checkbox1.hide();
-        this.checkbox2.hide();
-        this.confirmpass.hide();
-        this.setSize(800,550);
-        this.setSize(x,y);
-       
+    String username;
+    public Update_Information(int x,int y,String[] info) {
+        try {
+            initComponents();
+            
+            this.setTitle("Update Information");
+            this.setLocationRelativeTo(null);
+            this.jLabel9.hide();
+            this.jLabel10.hide();
+            this.pass.hide();
+            this.checkbox1.hide();
+            this.checkbox2.hide();
+            this.confirmpass.hide();
+            this.setSize(800,550);
+            this.setSize(x,y);
+            username = info[0];
+            this.user.setText(info[0]);
+            this.FN.setText(info[1]);
+            this.LN.setText(info[2]);
+            this.email.setText(info[4]);
+            this.Phone.setText("0"+info[5]);
+            this.city.setText(info[6]);
+            this.Datebirth.setDate(User.getBirth(info[0]));
+            if(info[7].equals("M")){
+                this.male.setSelected(true);
+                this.female.setSelected(false);
+            }else {
+                this.male.setSelected(false);
+                this.female.setSelected(true);
+            }} catch (SQLException ex) {
+            Logger.getLogger(Update_Information.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -210,6 +226,11 @@ public class Update_Information extends javax.swing.JFrame {
                 newPassMouseClicked(evt);
             }
         });
+        newPass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                newPassActionPerformed(evt);
+            }
+        });
         jPanel1.add(newPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 300, -1, -1));
 
         jButton1.setBackground(new java.awt.Color(144, 167, 140));
@@ -220,10 +241,15 @@ public class Update_Information extends javax.swing.JFrame {
                 jButton1MouseClicked(evt);
             }
         });
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 400, 152, 52));
 
         jLabel14.setBackground(new java.awt.Color(51, 51, 255));
-        jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/software/project/user_icon.png"))); // NOI18N
+        jLabel14.setText("IMAGE");
         jLabel14.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 10, -1, -1));
 
@@ -307,6 +333,8 @@ public class Update_Information extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_femaleActionPerformed
 
+    boolean changingPass = false;
+    
     private void newPassMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_newPassMouseClicked
         // TODO add your handling code here:
         
@@ -316,6 +344,8 @@ public class Update_Information extends javax.swing.JFrame {
         this.confirmpass.setVisible(true);
         this.checkbox1.setVisible(true);
         this.checkbox2.setVisible(true);
+        this.changingPass = true;
+       
     }//GEN-LAST:event_newPassMouseClicked
 
     private void PhoneKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PhoneKeyPressed
@@ -333,21 +363,46 @@ public class Update_Information extends javax.swing.JFrame {
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         // TODO add your handling code here:
-         if(this.FN.getText().isEmpty()||this.LN.getText().isEmpty()
-            ||this.email.getText().isEmpty()||this.Phone.getText().isEmpty()||this.pass.getText().isEmpty()||this.confirmpass.getText().isEmpty())
+        boolean pass = this.pass.getText().isEmpty()||this.confirmpass.getText().isEmpty();
+        boolean restFields = this.FN.getText().isEmpty()||this.LN.getText().isEmpty()
+            ||this.email.getText().isEmpty()||this.Phone.getText().isEmpty();
+         if(restFields || pass && this.changingPass)
             {
                 JOptionPane.showMessageDialog(null, "Please Fill all the Fields");
             }
-        
-      
        else if(!(this.pass.getText().equals(this.confirmpass.getText()))){
             JOptionPane.showMessageDialog(null, "Mismatch Passwords");
         }
          
        else{
-           JOptionPane.showMessageDialog(null, "Updated successfully");
+
            
            //store update in database...
+           // checking if there is a password update
+
+           // user,first,last,email,phone,address,gender
+           String[] info = new String[7];
+           info[0] = this.user.getText();
+           info[1] = this.FN.getText();
+           info[2] = this.LN.getText();
+           info[3] = this.email.getText();
+           info[4] = this.Phone.getText();
+           info[5] = this.city.getText();
+           if(this.male.isSelected())
+               info[6] = "M";
+           else info[6] = "F";
+             try {
+                 boolean done2= true;
+                if(this.changingPass){
+                    done2=User.changePass(username,this.pass.getText());
+                }
+                 boolean done = User.updateUser(username, info, new java.sql.Date(this.Datebirth.getDate().getTime()));
+                 if(done && done2){
+                     JOptionPane.showMessageDialog(rootPane,"Updated Successfully.","Information",JOptionPane.INFORMATION_MESSAGE);
+                 }
+             } catch (SQLException ex) {
+                 JOptionPane.showMessageDialog(rootPane,ex.toString(),"Error",JOptionPane.ERROR_MESSAGE);
+             }
             
            
        }    
@@ -374,43 +429,19 @@ public class Update_Information extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_checkbox2ItemStateChanged
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void newPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newPassActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_newPassActionPerformed
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Update_Information.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Update_Information.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Update_Information.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Update_Information.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                Update_Information gg=new Update_Information(850,450);
-                        gg.setVisible(true);
-                        gg.setSize(850,550);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.toedter.calendar.JDateChooser Datebirth;

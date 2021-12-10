@@ -646,8 +646,8 @@ public class homepage extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         servicebtn.setBackground(new Color(2,63,74));
-        
-     
+        User_Information uI = new User_Information(username);
+        uI.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void servicebtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_servicebtnMouseClicked

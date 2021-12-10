@@ -5,7 +5,11 @@
  */
 package software.project;
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -16,10 +20,29 @@ public class User_Information extends javax.swing.JFrame {
     /**
      * Creates new form User_Information
      */
-    public User_Information() {
+
+    private String[] info;
+    
+    public User_Information(String username) {
         initComponents();
         this.setTitle("User Information");
-         this.setLocationRelativeTo(null);
+        this.setLocationRelativeTo(null);
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        try {
+            
+            String[] info = AdminController.searchUser(username);
+            this.info = info;
+            this.jLabel7.setText(info[1]);
+            this.jLabel8.setText(info[2]);
+            this.jLabel15.setText(info[3]);
+            String gender = (info[7].equals("M"))?"Male":"Female";
+            this.jLabel11.setText(gender);
+            this.jLabel10.setText(info[4]);
+            this.jLabel9.setText(info[5]);
+            this.jLabel12.setText(info[8]);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(rootPane,"An error occured while connecting to the database","Error",JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     /**
@@ -90,7 +113,7 @@ public class User_Information extends javax.swing.JFrame {
         jLabel12.setText("18/5/2000");
 
         jLabel14.setBackground(new java.awt.Color(51, 51, 255));
-        jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/software/project/user_p-modified.png"))); // NOI18N
+        jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/software/project/persons.png"))); // NOI18N
         jLabel14.setVerticalAlignment(javax.swing.SwingConstants.TOP);
 
         jLabel13.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
@@ -105,6 +128,11 @@ public class User_Information extends javax.swing.JFrame {
         UPDATE.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 UPDATEMouseClicked(evt);
+            }
+        });
+        UPDATE.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UPDATEActionPerformed(evt);
             }
         });
 
@@ -132,23 +160,22 @@ public class User_Information extends javax.swing.JFrame {
                             .addComponent(jLabel11)
                             .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(148, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel12)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(UPDATE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel14)
+                            .addComponent(UPDATE))
                         .addGap(47, 47, 47))))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(384, 384, 384)
-                    .addComponent(jLabel14)
-                    .addContainerGap(88, Short.MAX_VALUE)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(54, 54, 54)
+                .addContainerGap()
+                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jLabel7))
@@ -182,11 +209,6 @@ public class User_Information extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(UPDATE)
                         .addGap(37, 37, 37))))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jLabel14)
-                    .addContainerGap(281, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -206,49 +228,22 @@ public class User_Information extends javax.swing.JFrame {
     private void UPDATEMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_UPDATEMouseClicked
         // TODO add your handling code here:
         
-        Update_Information reg=new Update_Information(850,450);
+        Update_Information reg=new Update_Information(850,450,info);
         reg.setSize(850,550);
         reg.setVisible(true);
        
         reg.setLocationRelativeTo(null);
-        reg.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        reg.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
       //  this.dispose();
     }//GEN-LAST:event_UPDATEMouseClicked
+
+    private void UPDATEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UPDATEActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_UPDATEActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(User_Information.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(User_Information.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(User_Information.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(User_Information.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new User_Information().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton UPDATE;
