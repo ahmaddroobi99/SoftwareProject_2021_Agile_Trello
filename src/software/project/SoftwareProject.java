@@ -21,7 +21,7 @@ public class SoftwareProject {
     public static void main(String[] args) {
         
         System.out.println("hi team scrum ");
-        new Card_info().setVisible(true);
+//        new Card_info("momen").setVisible(true);
         // TODO code application logic here
     }
     
