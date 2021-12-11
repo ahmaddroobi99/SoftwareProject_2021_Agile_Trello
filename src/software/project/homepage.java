@@ -547,7 +547,12 @@ public class homepage extends javax.swing.JFrame {
         jButton11.setBackground(new java.awt.Color(2, 63, 74));
         jButton11.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jButton11.setForeground(new java.awt.Color(255, 255, 255));
-        jButton11.setText("Service");
+        jButton11.setText("Add Subaccount");
+        jButton11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton11ActionPerformed(evt);
+            }
+        });
 
         jButton12.setBackground(new java.awt.Color(2, 63, 74));
         jButton12.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
@@ -701,6 +706,12 @@ public class homepage extends javax.swing.JFrame {
     private void servicebtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_servicebtnActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_servicebtnActionPerformed
+
+    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+        // TODO add your handling code here:
+        AddAccount aa = new AddAccount(username);
+        aa.setVisible(true);
+    }//GEN-LAST:event_jButton11ActionPerformed
 
     /**
      * @param args the command line arguments

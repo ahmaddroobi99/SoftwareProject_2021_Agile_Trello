@@ -30,6 +30,29 @@ public class User {
         }else return null;
     }
     
+    public static boolean checkAccount(String user,String currency) throws SQLException{
+        Connection con = DriverManager.getConnection(ConnectionInfo.url,ConnectionInfo.username,ConnectionInfo.password);
+        Statement stmt = con.createStatement();
+        String Search = "SELECT * FROM account where ownerusername = '"+user+"' and currency = '"+currency+"'";
+        ResultSet rs = stmt.executeQuery(Search);
+        if(rs.next())
+            return true;
+        else return false;
+    }
+    
+    public static boolean addSubAccount(String user,String currency) throws SQLException{
+        Connection con = DriverManager.getConnection(ConnectionInfo.url,ConnectionInfo.username,ConnectionInfo.password);
+
+        String insert = "INSERT INTO ACCOUNT(CURRENCY,BALANCE,OWNERUSERNAME) VALUES(?,?,?);";
+        PreparedStatement pstmt = con.prepareStatement(insert);
+        pstmt.setString(1, currency);
+        pstmt.setInt(2, 0);
+        pstmt.setString(3, user);
+        int r = pstmt.executeUpdate();
+        if (r >= 1)
+            return true;
+        else return false;
+    }
     
     public static boolean updateUser(String user,String[] info,Date d) throws SQLException{
         Connection con = DriverManager.getConnection(ConnectionInfo.url,ConnectionInfo.username,ConnectionInfo.password);
