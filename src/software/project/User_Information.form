@@ -237,7 +237,7 @@
               <Color blue="ff" green="33" red="33" type="rgb"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/software/project/User_Icon.png"/>
+              <Image iconType="3" name="/software/project/user_icon.png"/>
             </Property>
             <Property name="verticalAlignment" type="int" value="1"/>
           </Properties>

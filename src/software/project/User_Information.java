@@ -113,7 +113,7 @@ public class User_Information extends javax.swing.JFrame {
         jLabel12.setText("18/5/2000");
 
         jLabel14.setBackground(new java.awt.Color(51, 51, 255));
-        jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/software/project/User_Icon.png"))); // NOI18N
+        jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/software/project/user_icon.png"))); // NOI18N
         jLabel14.setVerticalAlignment(javax.swing.SwingConstants.TOP);
 
         jLabel13.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
