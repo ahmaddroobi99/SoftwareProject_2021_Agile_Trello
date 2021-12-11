@@ -20,6 +20,22 @@ import java.sql.Date;
 public class User {
     
     
+    public static Object[][] getAccounts(String user) throws SQLException{
+        Connection con = DriverManager.getConnection(ConnectionInfo.url,ConnectionInfo.username,ConnectionInfo.password);
+        Statement stmt = con.createStatement();
+        String Search = "SELECT AccountNo,Currency,Balance FROM account where ownerusername = '"+user+"'";
+        ResultSet rs = stmt.executeQuery(Search);
+        int size = 0;
+        while(rs.next())
+            size++;
+        rs = stmt.executeQuery(Search);
+        Object[][] data = new Object[size][3];
+        while(rs.next()){
+            data[rs.getRow()-1] = new Object[]{rs.getString(1),rs.getString(2),rs.getString(3)};
+        }
+        return data;
+    }
+    
     public static Date getBirth(String username) throws SQLException{
         Connection con = DriverManager.getConnection(ConnectionInfo.url,ConnectionInfo.username,ConnectionInfo.password);
         Statement stmt = con.createStatement();
