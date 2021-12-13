@@ -94,9 +94,9 @@ The Junit test classes can be found in the following folder: testcodes(To Be add
 ## Pair Programming 
 Yousef and Raouf was doing the backend part together directed by Droobi
 ## Design PAtterns 
-Builder
-MVC
-Prototype
+Builder//
+MVC//
+Prototype//
 ## Learning Process 
 **Experts in software architecture and design are highly paid, because they know how to create designs that are flexible, elegant, and reusable.
 **You become an expert through experience, reusing solutions that worked for you before.
@@ -108,9 +108,10 @@ Prototype
 
 ## Stakeholders: 
 each one involved in the project, and it includes: 
-1)Customer.
-2)Developers.
-3)Users.
+   1)Customer.
+   2)Developers.
+   3)Users.
+   4)ADmin
 
 Lessons  :
 a) Positives
