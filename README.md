@@ -21,7 +21,7 @@ This system will be an e-Wallet designed for use by the students of Palestine. T
 
 Currently, some of the issues brought out by the students include the fact that they do not receive change in cash, on making purchases at most outlets on campus. Added to this is the problem of most students having to wait for a long time to get the bill settled after a small purchase. Even worse are scenarios where the outlet owners are robbed of their money when the students manage to get away without payment when there is a huge rush. The e-Wallet system has the potential to solve all of these issues if implemented across campus.
 
-Currently, the system is designed for usage only by students of Bits Goa. Further additions could be made to the system to make this facility available to any on-campus resident, say, staff members, wardens, hostel assistants, etc.
+Currently, the system is designed for usage only by students of palestine . Further additions could be made to the system to make this facility available to any on-campus resident, say, staff members, wardens, hostel assistants, etc.
 
 1.3. Glossary
 
@@ -32,7 +32,7 @@ The software component that handles the payment and associated data and provides
 
 Student
 
-Refers to the students at Palestine. More specifically, any person with access to the outlets at Bits Goa who has an SWD account maintained at the campus and is identified by a unique ID number provided by the campus.
+Refers to the students at Palestine. More specifically, any person with access to the outlets at Palestine who has an SWD account maintained at the campus and is identified by a unique ID number provided by the campus.
 
 * Database
 Collection of all the information, i.e., payment logs, credit balances and dues, account balances and registered student information is monitored by this system.
