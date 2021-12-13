@@ -32,7 +32,7 @@ The software component that handles the payment and associated data and provides
 
 Student
 
-Refers to the students at Bits Goa. More specifically, any person with access to the outlets at Bits Goa who has an SWD account maintained at the campus and is identified by a unique ID number provided by the campus.
+Refers to the students at Palestine. More specifically, any person with access to the outlets at Bits Goa who has an SWD account maintained at the campus and is identified by a unique ID number provided by the campus.
 
 * Database
 Collection of all the information, i.e., payment logs, credit balances and dues, account balances and registered student information is monitored by this system.
